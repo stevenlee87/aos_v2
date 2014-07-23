@@ -3,7 +3,7 @@
 
 from setuptools import setup, find_packages
 
-readme = open('README').read()
+readme = open('README.md').read()
 
 setup(
     name='aos',
@@ -11,8 +11,8 @@ setup(
     description=readme.partition('\n')[0],
     long_description=readme,
     author='sohu-movie',
-    author_email='wls-movie@sohu-inc.com',
-    url='http://aos.go.sohuno.com',
+    author_email='stevenlee87@126.com',
+    url='https://github.com/stevenlee87/aos',
     packages=find_packages('aos'),
     package_dir={'': 'aos'},
     include_package_data=True,

@@ -1,4 +1,3 @@
-README
 aos/manage.py
 aos/aos/__init__.py
 aos/aos/settings.py

@@ -1,12 +1,12 @@
 Metadata-Version: 1.0
 Name: aos
 Version: -version-
-Summary: AOS - Automated Operational System
-Home-page: http://aos.go.sohuno.com
+Summary: AOS - Automatic Operational System
+Home-page: https://github.com/stevenlee87/aos
 Author: sohu-movie
-Author-email: wls-movie@sohu-inc.com
+Author-email: stevenlee87@126.com
 License: UNKNOWN
-Description: AOS - Automated Operational System
+Description: AOS - Automatic Operational System
         ===========================================================
         
 Platform: UNKNOWN

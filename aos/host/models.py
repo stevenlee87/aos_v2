@@ -5,6 +5,7 @@ from django.db import models
 
 
 class Service(models.Model):
+    """ 业务管理"""
     name = models.CharField(max_length=200, verbose_name="业务名称")
 
     update_time = models.DateTimeField(auto_now=True)
@@ -14,9 +15,10 @@ class Service(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = verbose_name_plural = "业务管理"
+        verbose_name = verbose_name_plural = "业务"
 
 class InternetDataCenter(models.Model):
+    """机房管理"""
     name = models.CharField(max_length=200, verbose_name="机房名称")
     idc_contact = models.CharField(max_length=200, verbose_name="机房联系人")
     comment = models.CharField(blank=True, max_length=1000, verbose_name="备注")
@@ -27,9 +29,10 @@ class InternetDataCenter(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = verbose_name_plural = "机房管理"
+        verbose_name = verbose_name_plural = "机房"
 
 class Host(models.Model):
+    """主机管理"""
     HOST_STATUS = (
 		(0, '在线'),
         (1, '测试'),
@@ -61,4 +64,4 @@ class Host(models.Model):
         return '<%s:%s:%s>' % (self.name, self.ip_in, self.status)
 
     class Meta:
-        verbose_name = verbose_name_plural = "主机管理"
+        verbose_name = verbose_name_plural = "主机"

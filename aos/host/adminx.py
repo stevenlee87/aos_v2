@@ -46,6 +46,7 @@ xadmin.site.register(Host, HostAdmin)
 
 
 class ServiceAdmin(object):
+    reversion_enable = True
     list_display = ('id', 'name', 'host_count', 'update_time')
     list_display_links = ('id', 'name')
     def host_count(self, obj):
@@ -56,6 +57,7 @@ class ServiceAdmin(object):
 xadmin.site.register(Service, ServiceAdmin)
 
 class InternetDataCenterAdmin(object):
+    reversion_enable = True
     list_display = ('id', 'name', 'idc_contact','host_count', 'comment', 'update_time')
     list_display_links = ('id', 'name')
     def host_count(self, obj):

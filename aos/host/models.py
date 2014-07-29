@@ -55,10 +55,10 @@ class Host(models.Model):
 
     type = models.IntegerField(choices=HOST_TYPE, verbose_name="主机类型")
     status = models.IntegerField(choices=HOST_STATUS, verbose_name="状态")
-    comment = models.CharField(max_length=1000, verbose_name="备注")
+    comment = models.CharField(blank=True, max_length=1000, verbose_name="备注")
 
-    update_time = models.DateTimeField(auto_now=True)
-    created_time = models.DateTimeField(auto_now_add=True)
+    update_time = models.DateTimeField(blank=True, auto_now=True)
+    created_time = models.DateTimeField(blank=True, auto_now_add=True)
 
     def __unicode__(self):
         return '<%s:%s:%s>' % (self.name, self.ip_in, self.status)

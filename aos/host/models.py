@@ -44,9 +44,9 @@ class Host(models.Model):
     HOST_TYPE = (
         (0, '虚拟机'),
         (1, '宿主机'),
-        (3, '物理机'),
+        (2, '物理机'),
     )
-    name = models.CharField(max_length=200, verbose_name="主机名")
+    name = models.CharField(blank=True, max_length=200, verbose_name="主机名")
     ip_in = models.IPAddressField(verbose_name="内网IP")
     ip_out = models.IPAddressField(blank=True, verbose_name="公网IP")
 
@@ -61,7 +61,7 @@ class Host(models.Model):
     created_time = models.DateTimeField(blank=True, auto_now_add=True)
 
     def __unicode__(self):
-        return '<%s:%s:%s>' % (self.name, self.ip_in, self.status)
+        return '[%s][%s]' % (self.name, self.ip_in)
 
     class Meta:
         verbose_name = verbose_name_plural = "主机"

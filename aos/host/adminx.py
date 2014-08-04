@@ -28,6 +28,12 @@ from .models import (
     Host, Service, InternetDataCenter
 )
 
+class HostInline(object):
+    model = Host
+    extra = 0
+    style = 'accordion'
+    readonly_fields = ('id', )
+    can_delete = False
 
 class HostAdmin(object):
     reversion_enable = True
@@ -46,6 +52,7 @@ xadmin.site.register(Host, HostAdmin)
 
 
 class ServiceAdmin(object):
+    inlines = [HostInline]
     reversion_enable = True
     list_display = ('id', 'name', 'host_count', 'update_time')
     list_display_links = ('id', 'name')
@@ -57,6 +64,7 @@ class ServiceAdmin(object):
 xadmin.site.register(Service, ServiceAdmin)
 
 class InternetDataCenterAdmin(object):
+    inlines = [HostInline]
     reversion_enable = True
     list_display = ('id', 'name', 'idc_contact','host_count', 'comment', 'update_time')
     list_display_links = ('id', 'name')

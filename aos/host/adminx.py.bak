@@ -1,0 +1,130 @@
+#coding:utf-8
+#from __future__ import unicode_literals
+from __future__ import absolute_import, division, with_statement, unicode_literals
+from collections import namedtuple
+
+import xadmin
+from xadmin import views
+from xadmin.plugins.actions import ActionPlugin
+from xadmin.plugins.relate import RelateMenuPlugin
+
+#from cas_auth.views import CasLoginView
+
+ActionPlugin.global_actions = []
+RelateMenuPlugin.use_related_menu = False
+#xadmin.site.set_loginview(CasLoginView)
+
+class BaseSetting(object):
+    enable_themes = False
+    use_bootswatch = True
+xadmin.site.register(views.BaseAdminView, BaseSetting)
+
+
+class GlobeSetting(object):
+    site_title = 'AOS'
+xadmin.site.register(views.CommAdminView, GlobeSetting)
+
+from .models import (
+    Host, Service, InternetDataCenter
+)
+
+class HostInline(object):
+    model = Host
+    extra = 0
+    style = 'accordion'
+    readonly_fields = ('id', )
+    can_delete = False
+
+class HostAdmin(object):
+    reversion_enable = True
+
+    list_display = ('id', 'name', 'ip_in', 'ip_out', 'internetdatacenter', 'service', 'type', 'status', 'comment','update_time')
+
+    list_display_links = ('id', 'name')
+    list_editable = ('published', 'available')
+
+    search_fields = ('id', 'name', 'ip_in', 'ip_out')
+    list_filter = ['service']
+
+
+xadmin.site.register(Host, HostAdmin)
+#xadmin.site.register(Host, )
+
+
+class ServiceAdmin(object):
+    inlines = [HostInline]
+    reversion_enable = True
+    list_display = ('id', 'name', 'host_count', 'update_time')
+    list_display_links = ('id', 'name')
+    def host_count(self, obj):
+        return '%s台' % obj.host_set.count()
+    
+    host_count.short_description = '主机数量'	
+
+xadmin.site.register(Service, ServiceAdmin)
+
+class InternetDataCenterAdmin(object):
+    inlines = [HostInline]
+    reversion_enable = True
+    list_display = ('id', 'name', 'idc_contact','host_count', 'comment', 'update_time')
+    list_display_links = ('id', 'name')
+    def host_count(self, obj):
+        return '%s台' % obj.host_set.count()
+
+    host_count.short_description = '主机数量'
+
+xadmin.site.register(InternetDataCenter, InternetDataCenterAdmin)
+
+class NavMenuPlugin(views.BaseAdminPlugin):
+    MenuBlock = namedtuple('MenuBlock', 'title items')
+    MenuItem = namedtuple('MenuItem', 'title icon url')
+    MenuItemReplace = namedtuple('MenuItem', 'perm title')
+    target_menu = [
+        MenuBlock('Host', [
+            MenuItemReplace('host.view_host', '主机管理', ),
+            MenuItemReplace('host.view_service', '业务管理', ),
+            MenuItemReplace('host.view_internetdatacenter', '机房管理', ),
+        ]),
+#        MenuBlock('Poll', [
+#            MenuItemReplace('polls.view_question', '问题', ),
+#            MenuItemReplace('polls.view_choice', '选项', ),
+#        ]),
+        MenuBlock('其他', [
+            MenuItemReplace('auth.view_group', '组', ),
+            MenuItemReplace('auth.view_user', '用户', ),
+            MenuItemReplace('auth.view_permission', '权限', ),
+        ]),
+    ]
+
+    def get_nav_menu(self, navi_menu):
+        menu_map = {}
+        for block in navi_menu:
+            for menu in block['menus']:
+                menu_map[menu['perm']] = menu
+    
+        result_menu = []
+        for block in self.target_menu:
+            block_menu = {
+                'title': block.title,
+                'first_url': '',
+                'menus': []
+            }
+        
+            for item in block.items:
+                if isinstance(item, self.MenuItem):
+                    item_menu = {
+                    'perm': item.title + 'perm',
+                    'title': item.title,
+                    'url': item.url,
+                    'icon': item.icon,
+                    }
+                elif isinstance(item, self.MenuItemReplace):
+                    item_menu = menu_map[item.perm]
+                    item_menu['title'] = item.title
+                else:
+                    item_menu = menu_map[item]
+                
+                block_menu['menus'].append(item_menu)
+            result_menu.append(block_menu)
+        return result_menu
+xadmin.site.register_plugin(NavMenuPlugin, views.CommAdminView)

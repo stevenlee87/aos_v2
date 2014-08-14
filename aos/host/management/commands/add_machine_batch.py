@@ -8,13 +8,13 @@ parser = OptionParser()
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         parser.add_option('-n', '--name',   action='store', dest='name',  default=False, type='string', help='add hostname'),
-        parser.add_option('-i', '--ip_in',  action='store', dest='ip_in', default=False, type='string', help='add private ip'),
-        parser.add_option('-o', '--ip_out', action='store', dest='ip_out',default=False, type='string', help='add public ip'),
-        parser.add_option('-d', '--idc',    action='store', dest='internetdatacenter',  default=False, type='string', help='add hostname'),
-        parser.add_option('-s', '--service',  action='store', dest='service', default=False, type='string', help='add private ip'),
-        parser.add_option('-t', '--type', action='store', dest='type',default=False, type='string', help='add public ip'),
-        parser.add_option('-u', '--status',  action='store', dest='status', default=False, type='string', help='add private ip'),
-        parser.add_option('-c', '--comment', action='store', dest='comment',default=False, type='string', help='add public ip'),
+        parser.add_option('-i', '--ip_in',  action='store', dest='ip_in', default=False, type='string', help='add host private ip'),
+        parser.add_option('-o', '--ip_out', action='store', dest='ip_out',default=False, type='string', help='add host public ip'),
+        parser.add_option('-d', '--idc',    action='store', dest='internetdatacenter',  default=False, type='string', help='add internetdatacenter'),
+        parser.add_option('-s', '--service',  action='store', dest='service', default=False, type='string', help='add service'),
+        parser.add_option('-t', '--type', action='store', dest='type',default=False, type='string', help='add host type'),
+        parser.add_option('-u', '--status',  action='store', dest='status', default=False, type='string', help='add host status'),
+        parser.add_option('-c', '--comment', action='store', dest='comment',default=False, type='string', help='add host comment'),
         )
 
     def handle(self, *args, **options):

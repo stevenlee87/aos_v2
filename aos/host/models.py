@@ -55,7 +55,8 @@ class Host(models.Model):
 
     type = models.IntegerField(choices=HOST_TYPE, verbose_name="主机类型")
     status = models.IntegerField(choices=HOST_STATUS, verbose_name="状态")
-    comment = models.CharField(blank=True, max_length=1000, verbose_name="备注")
+    #comment = models.CharField(blank=True, max_length=1000, verbose_name="备注")
+    #comment = models.ForeignKey(HostComment, verbose_name="备注")
 
     update_time = models.DateTimeField(blank=True, auto_now=True)
     created_time = models.DateTimeField(blank=True, auto_now_add=True)
@@ -65,3 +66,18 @@ class Host(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = "主机"
+
+class HostComment(models.Model):
+    """主机备注"""
+    #comment = models.CharField(blank=True, max_length=1000, verbose_name="备注")
+    host = models.ForeignKey(Host, verbose_name="主机")
+    comment = models.CharField(blank=True, max_length=1000, verbose_name="备注")
+    update_time = models.DateTimeField(auto_now=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        #return '[%s] [%s]' % (self.comment, self.update_time.strftime('%Y-%m-%d %H:%M:%S'))
+        return '[%s]' % self.comment
+
+    class Meta:
+        verbose_name = verbose_name_plural = "备注"

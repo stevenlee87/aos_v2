@@ -38,7 +38,6 @@ class Host(models.Model):
         (1, '测试'),
         (2, '空闲'),
         (3, '其他'),
-		(4, '宿主机'),
     )
 
     HOST_TYPE = (

@@ -41,7 +41,8 @@ class HostAdmin(object):
         for hostcomment_item in obj.hostcomment_set.all():
             content = hostcomment_item.comment
 
-            column_number = 32
+            #column_number = 32
+            column_number = 25
             while True:
                 if len(content) > column_number:
                     content = content[0:column_number] + '<br>' + content[column_number:(column_number*2)]

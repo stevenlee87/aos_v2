@@ -6,8 +6,8 @@ from optparse import OptionParser
 from django.core.management.base import BaseCommand, CommandError
 from host.models import Host, Service, InternetDataCenter
 
-usage = "usage: python %prog add_machine_batch --name test123 --ip_in ip.list --ip_out 61.125.32.150 --idc 1 --service 1 --type 0 --status 1 --comment test-test"
-#parser = OptionParser() 
+#usage = "usage: python %prog add_machine_batch --name test123 --ip_in ip.list --ip_out 61.125.32.150 --idc 1 --service 1 --type 0 --status 1 --comment test-test"
+parser = OptionParser() 
 idc_all = ''
 status_desc_all = ''
 service_desc_all = ''
@@ -30,8 +30,19 @@ for status_desc in Host.HOST_STATUS:
 class Command(BaseCommand):
 #    option_list = BaseCommand.option_list + (
 #    help = "Usage: python manage.py add_machine_batch --name test123 --ip_in ip.list --ip_out 61.125.32.150 --idc 1 --service 1 --type 0 --status 1 --comment test-test"
-    help = "Usage: python manage.py add_machine_batch --name test123 --ip_in ip.list --idc 1 --service 1 --type 0 --status 1 --comment test-test"
-    parser = OptionParser(usage = usage)
+
+    def usage(self, subcommand):
+        """
+        Return a brief description of how to use this command, by
+        default from the attribute ``self.help``.
+
+        """
+        usage = 'python %%prog %s --name test123 --ip_in ip.list --idc 1 --service 1 --type 0 --status 0 --comment test-test %s' % (subcommand, self.args)
+        if self.help:
+            return '%s\n\n%s' % (usage, self.help)
+        else:
+            return usage
+    #help = "Usage: python manage.py add_machine_batch --name test123 --ip_in ip.list --idc 1 --service 1 --type 0 --status 1 --comment test-test"
     option_list = (
         parser.add_option(str('-n'), '--name',   action='store', dest='name',  default=False, type='string', help='add hostname'),
         parser.add_option(str('-i'), '--ip_in',  action='store', dest='iplist', default=False, type='string', help='一个ip.list文件(一行一个ip)'),

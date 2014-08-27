@@ -21,8 +21,19 @@ for service_desc in Service.objects.all():
 
 class Command(BaseCommand):
     #option_list = BaseCommand.option_list + (
+    def usage(self, subcommand):
+        """
+        Return a brief description of how to use this command, by
+        default from the attribute ``self.help``.
+
+        """
+        usage = 'python %%prog %s --ip_in ip.list --service 1 --status 0 --comment test-test %s' % (subcommand, self.args)
+        if self.help:
+            return '%s\n\n%s' % (usage, self.help)
+        else:
+            return usage
     option_list = (
-        parser.add_option(str('-i'), '--ip_in',  action='store', dest='iplist', default=False, type='string', help='可以是一个单独的ip，也可以是一个ip.list文件(一行一个ip)'),
+        parser.add_option(str('-i'), '--ip_in',  action='store', dest='iplist', default=False, type='string', help='一个ip.list文件(一行一个ip)'),
         parser.add_option(str('-s'), '--service',  action='store', dest='service', default=False, type='string', help=service_desc_all),
         parser.add_option(str('-u'), '--status',  action='store', dest='status', default=False, type='string', help=status_desc_all ),
         parser.add_option(str('-c'), '--comment', action='store', dest='comment',default=False, type='string', help='添加备注信息'),

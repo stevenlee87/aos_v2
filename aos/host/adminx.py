@@ -12,7 +12,8 @@ class HostInline(object):
     extra = 0
     style = 'accordion'
     readonly_fields = ('id', )
-    can_delete = False
+#    can_delete = False
+    can_delete = True
 
 class HostCommentInline(object):
     model = HostComment

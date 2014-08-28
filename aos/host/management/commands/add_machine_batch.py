@@ -6,7 +6,6 @@ from optparse import OptionParser
 from django.core.management.base import BaseCommand, CommandError
 from host.models import Host, Service, InternetDataCenter
 
-#usage = "usage: python %prog add_machine_batch --name test123 --ip_in ip.list --ip_out 61.125.32.150 --idc 1 --service 1 --type 0 --status 1 --comment test-test"
 parser = OptionParser() 
 idc_all = ''
 status_desc_all = ''
@@ -28,8 +27,7 @@ for status_desc in Host.HOST_STATUS:
     status_desc_all +=  "status_id:%d-%s " % (status_desc[0], status_desc[1])
 
 class Command(BaseCommand):
-#    option_list = BaseCommand.option_list + (
-#    help = "Usage: python manage.py add_machine_batch --name test123 --ip_in ip.list --ip_out 61.125.32.150 --idc 1 --service 1 --type 0 --status 1 --comment test-test"
+    #option_list = BaseCommand.option_list + (
 
     def usage(self, subcommand):
         """
@@ -42,11 +40,12 @@ class Command(BaseCommand):
             return '%s\n\n%s' % (usage, self.help)
         else:
             return usage
-    #help = "Usage: python manage.py add_machine_batch --name test123 --ip_in ip.list --idc 1 --service 1 --type 0 --status 1 --comment test-test"
-    option_list = (
-        parser.add_option(str('-n'), '--name',   action='store', dest='name',  default=False, type='string', help='add hostname'),
+
+    option_list = BaseCommand.option_list + (
+#    option_list = (
+        parser.add_option(str('-n'), '--name',   action='store', dest='name',  default=False, type='string', help='添加主机名'),
         parser.add_option(str('-i'), '--ip_in',  action='store', dest='iplist', default=False, type='string', help='一个ip.list文件(一行一个ip)'),
-#        parser.add_option(str('-o'), '--ip_out', action='store', dest='ip_out',default=False, type='string', help='add host public ip'),
+        parser.add_option(str('-o'), '--ip_out', action='store', dest='ip_out',default='', type='string', help='添加外网IP地址,默认为空'),
         parser.add_option(str('-d'), '--idc',    action='store', dest='internetdatacenter',  default=False, type='string', help=idc_all),
         parser.add_option(str('-s'), '--service',  action='store', dest='service', default=False, type='string', help=service_desc_all),
         parser.add_option(str('-t'), '--type', action='store', dest='type',default=False, type='string', help=host_type_all),
@@ -59,9 +58,10 @@ class Command(BaseCommand):
         file_path = os.path.abspath(options.iplist)
         ip_list = open(file_path)
         for ip in ip_list:
-#print ip,
-#h = Host(name=options.name, ip_in=ip, ip_out=options.ip_out, internetdatacenter_id=options.internetdatacenter, service_id=options.service, type=options.type, status=options.status)
+            #print ip,
+            ip = ip.strip('\n')
             h = Host(name=options.name, ip_in=ip, ip_out=options.ip_out, internetdatacenter_id=options.internetdatacenter, service_id=options.service, type=options.type, status=options.status)
+            #h = Host(name=options.name, ip_in=ip,  internetdatacenter_id=options.internetdatacenter, service_id=options.service, type=options.type, status=options.status)
             h.save()     
             h.hostcomment_set.create(comment=options.comment)
 

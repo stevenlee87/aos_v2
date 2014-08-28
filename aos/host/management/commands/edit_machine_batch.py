@@ -32,7 +32,9 @@ class Command(BaseCommand):
             return '%s\n\n%s' % (usage, self.help)
         else:
             return usage
-    option_list = (
+
+    option_list = BaseCommand.option_list + (
+    #option_list = (
         parser.add_option(str('-i'), '--ip_in',  action='store', dest='iplist', default=False, type='string', help='一个ip.list文件(一行一个ip)'),
         parser.add_option(str('-s'), '--service',  action='store', dest='service', default=False, type='string', help=service_desc_all),
         parser.add_option(str('-u'), '--status',  action='store', dest='status', default=False, type='string', help=status_desc_all ),
@@ -44,9 +46,12 @@ class Command(BaseCommand):
         file_path = os.path.abspath(options.iplist)
         ip_list = open(file_path)
         for ip in ip_list:
-            #print ip,
+            #print "ip is: %s" % ip
+            ip = ip.strip('\n')
             #h = Host(name=options.name, ip_in=ip, ip_out=options.ip_out, internetdatacenter_id=options.internetdatacenter, service_id=options.service, type=options.type, status=options.status, comment=options.comment)
+            #import pdb;pdb.set_trace()
             h = Host.objects.get(ip_in=ip)
             h.service_id = options.service
             h.status = options.status
+            h.save()
             h.hostcomment_set.create(comment=options.comment)

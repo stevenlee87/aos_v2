@@ -14,5 +14,6 @@ DATABASES = { }
 pip install -r requirements.txt 
 
 4.start
+python aos/aos/manage.py syncdb
 python aos/aos/manage.py runserver 0.0.0.0:8000
 

@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'aos',
     'host',
-    'polls',
+    'servicespecific',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -71,7 +71,7 @@ DATABASES = {
 		'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
 	    'NAME': 'aos',                      # Or path to database file if using sqlite3.
 		'USER': 'root',                      # Not used with sqlite3.
-		'PASSWORD': 'root',                  # Not used with sqlite3.
+		'PASSWORD': 'ledoadmin',                  # Not used with sqlite3.
 		'HOST': '127.0.0.1',                      # Set to empty string for localhost. Not used with sqlite3.
 		'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -99,4 +99,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/opt/www/static/aos/'
+STATIC_ROOT = '/export/www/static/aos/'

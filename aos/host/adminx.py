@@ -4,7 +4,8 @@ from __future__ import absolute_import, division, with_statement, unicode_litera
 import xadmin
 
 from .models import (
-    Host, Service, InternetDataCenter, HostComment
+    #Host, Service, CloudAndService, HostComment
+    Host, Service, CloudAndService
 )
 
 class HostInline(object):
@@ -15,53 +16,53 @@ class HostInline(object):
 #    can_delete = False
     can_delete = True
 
-class HostCommentInline(object):
-    model = HostComment
-    extra = 0
-    style = 'accordion'
-    readonly_fields = ('id', )
-    can_delete = True
+#class HostCommentInline(object):
+#    model = HostComment
+#    extra = 0
+#    style = 'accordion'
+#    readonly_fields = ('id', )
+#    can_delete = True
 
 class HostAdmin(object):
-    inlines = [HostCommentInline]
+    #inlines = [HostCommentInline]
     reversion_enable = True
 
     #list_display = ('id', 'name', 'ip_in', 'ip_out', 'internetdatacenter', 'service', 'type', 'status', 'comment','update_time')
-    list_display = ('id', 'name', 'ip_in', 'ip_out', 'internetdatacenter', 'service', 'type', 'status', 'hostcomment_display', 'update_time')
+    list_display = ('id', 'name', 'ip_in', 'ip_out', 'cpu', 'memory', 'disk', 'raid', 'drac', 'service_tag', 'model', 'image', 'created_time', 'expire_time', 'service', 'type', 'status', 'cloudandservice')
 
     list_display_links = ('id', 'name')
     list_editable = ('published', 'available')
 
     search_fields = ('id', 'name', 'ip_in', 'ip_out')
-    list_filter = ['service']
+    list_filter = ['id', 'name', 'ip_in', 'ip_out', 'cpu', 'memory', 'disk', 'raid', 'drac', 'service_tag', 'model', 'image', 'type', 'status', 'cloudandservice']
 
-    def hostcomment_display(self, obj):
-        item_add = ''
-        i = 1
-        
-        for hostcomment_item in obj.hostcomment_set.all():
-            content = hostcomment_item.comment
+    #def hostcomment_display(self, obj):
+    #    item_add = ''
+    #    i = 1
+    #    
+    #    for hostcomment_item in obj.hostcomment_set.all():
+    #        content = hostcomment_item.comment
 
-            #column_number = 32
-            column_number = 25
-            while True:
-                if len(content) > column_number:
-                    content = content[0:column_number] + '<br>' + content[column_number:(column_number*2)]
-                    if len(content[(column_number*2):]) > column_number:
-                        #content = content[0:column_number*2] + '<br>' + content[(column_number*2):(column_number*3)] + '<br>' + content[(column_number*3):]
-                        content = content[0:column_number*2] + '<br>' + content[(column_number*2):]
-                        break
-                    else:
-                        break
-                else:
-                    break
+    #        #column_number = 32
+    #        column_number = 25
+    #        while True:
+    #            if len(content) > column_number:
+    #                content = content[0:column_number] + '<br>' + content[column_number:(column_number*2)]
+    #                if len(content[(column_number*2):]) > column_number:
+    #                    #content = content[0:column_number*2] + '<br>' + content[(column_number*2):(column_number*3)] + '<br>' + content[(column_number*3):]
+    #                    content = content[0:column_number*2] + '<br>' + content[(column_number*2):]
+    #                    break
+    #                else:
+    #                    break
+    #            else:
+    #                break
 
-            item_add += ('%s' + '.' + content + '<br>') % i
-            i += 1
-        return item_add
+    #        item_add += ('%s' + '.' + content + '<br>') % i
+    #        i += 1
+    #    return item_add
 
-    hostcomment_display.short_description = '备注'
-    hostcomment_display.allow_tags = True
+    #hostcomment_display.short_description = '备注'
+    #hostcomment_display.allow_tags = True
 
 xadmin.site.register(Host, HostAdmin)
 
@@ -77,7 +78,7 @@ class ServiceAdmin(object):
 
 xadmin.site.register(Service, ServiceAdmin)
 
-class InternetDataCenterAdmin(object):
+class CloudAndServiceAdmin(object):
     inlines = [HostInline]
     reversion_enable = True
     list_display = ('id', 'name', 'idc_contact','host_count', 'comment', 'update_time')
@@ -87,5 +88,5 @@ class InternetDataCenterAdmin(object):
 
     host_count.short_description = '主机数量'
 
-xadmin.site.register(InternetDataCenter, InternetDataCenterAdmin)
+xadmin.site.register(CloudAndService, CloudAndServiceAdmin)
 

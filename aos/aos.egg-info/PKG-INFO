@@ -1,0 +1,29 @@
+Metadata-Version: 1.0
+Name: aos
+Version: -version-
+Summary: AOS - Automatic Operational System
+Home-page: https://github.com/stevenlee87/aos
+Author: sohu-movie
+Author-email: stevenlee87@126.com
+License: UNKNOWN
+Description: AOS - Automatic Operational System
+        ===========================================================
+        
+        1.initial mysql
+        
+        CREATE DATABASE aos CHARACTER SET utf8 COLLATE utf8_bin;
+        flush privileges;
+        
+        2.edit setting configuration
+        vim aos/aos/aos/settings.py
+        DATABASES = { } 
+        
+        3.installing dependencies 
+        pip install -r requirements.txt 
+        
+        4.start
+        python aos/aos/manage.py syncdb
+        python aos/aos/manage.py runserver 0.0.0.0:8000
+        
+        
+Platform: UNKNOWN

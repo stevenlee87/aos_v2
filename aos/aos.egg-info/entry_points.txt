@@ -1,0 +1,3 @@
+[console_scripts]
+aos = manage:main
+

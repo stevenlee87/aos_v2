@@ -21,7 +21,7 @@ xadmin.site.register(views.BaseAdminView, BaseSetting)
 
 
 class GlobeSetting(object):
-    site_title = 'AOS'
+    site_title = '乐道互动'
 xadmin.site.register(views.CommAdminView, GlobeSetting)
 
 class NavMenuPlugin(views.BaseAdminPlugin):
@@ -31,12 +31,12 @@ class NavMenuPlugin(views.BaseAdminPlugin):
     target_menu = [
         MenuBlock('Host', [
             MenuItemReplace('host.view_host', '主机管理', ),
-            MenuItemReplace('host.view_service', '业务管理', ),
-            MenuItemReplace('host.view_internetdatacenter', '机房管理', ),
+            MenuItemReplace('host.view_service', '业务框架管理', ),
+            MenuItemReplace('host.view_cloudandservice', '云与服务管理', ),
         ]),
-        MenuBlock('Polls', [
-            MenuItemReplace('polls.view_poll', '投票', ),
-            MenuItemReplace('polls.view_choice', '选项', ),
+        MenuBlock('业务具体管理', [
+            MenuItemReplace('servicespecific.view_serverlist', '服务器组列表', ),
+            MenuItemReplace('servicespecific.view_project', '项目管理', ),
         ]),
         MenuBlock('其他', [
             MenuItemReplace('auth.view_group', '组', ),

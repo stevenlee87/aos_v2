@@ -55,11 +55,13 @@ class Host(models.Model):
     HOST_MODEL = (
         (0, 'DELL 630'),
         (1, 'DELL 730XD'),
+        (2, 'other'),
     )
 
     HOST_IMAGE = (
         (0, 'centos_6.6_x86_64'),
         (1, 'redhat_6.6_x86_64'),
+        (2, 'Windows Server 2008 R2 Datacenter 64位英文版'),
     )
 
     name = models.CharField(blank=True, max_length=200, verbose_name="主机名")

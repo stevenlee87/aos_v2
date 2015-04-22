@@ -4,7 +4,7 @@ import os
 from optparse import OptionParser
 
 from django.core.management.base import BaseCommand, CommandError
-from host.models import Host, Service, InternetDataCenter
+from host.models import Host, Service, CloudAndService
 
 parser = OptionParser() 
 idc_all = ''
@@ -14,7 +14,7 @@ host_type_all = ''
 i = 1
 d = 1
 
-for idc in InternetDataCenter.objects.all():
+for idc in CloudAndService.objects.all():
     idc_all +=  "idc_id:%d-%s " % (i, idc)
     i += 1
 #for service_desc in Service.objects.filter(id__in=Host.objects.values_list('service').distinct()).values_list('name', flat=True):
@@ -35,7 +35,8 @@ class Command(BaseCommand):
         default from the attribute ``self.help``.
 
         """
-        usage = 'python %%prog %s --name test123 --ip_in ip.list --idc 1 --service 1 --type 0 --status 0 --comment test-test %s' % (subcommand, self.args)
+        #usage = 'python %%prog %s --name test123 --ip_in ip.list --idc 1 --service 1 --type 0 --status 0 --comment test-test %s' % (subcommand, self.args)
+        usage = 'python %%prog %s --name test123 --ip_in ip.list --idc 1 --service 1 --type 0 --status 0 %s' % (subcommand, self.args)
         if self.help:
             return '%s\n\n%s' % (usage, self.help)
         else:
@@ -60,8 +61,8 @@ class Command(BaseCommand):
         for ip in ip_list:
             #print ip,
             ip = ip.strip('\n')
-            h = Host(name=options.name, ip_in=ip, ip_out=options.ip_out, internetdatacenter_id=options.internetdatacenter, service_id=options.service, type=options.type, status=options.status)
+            h = Host(name=options.name, ip_in=ip, ip_out=options.ip_out, cloudandserver_id=options.cloudandservice, service_id=options.service, type=options.type, status=options.status)
             #h = Host(name=options.name, ip_in=ip,  internetdatacenter_id=options.internetdatacenter, service_id=options.service, type=options.type, status=options.status)
             h.save()     
-            h.hostcomment_set.create(comment=options.comment)
+            #h.hostcomment_set.create(comment=options.comment)
 

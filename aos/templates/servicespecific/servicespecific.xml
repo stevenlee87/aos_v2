@@ -1,0 +1,11 @@
+<!DOCTYPE xml>
+<html>
+  <head>
+    <title>servergrouplist</title>
+  </head>
+  <body>
+    {% block content %}
+    <p><objects><row><ID>{{ custom_id }}</ID><服务器开服时间>{{ created_time }}</服务器开服时间><项目名称>{{ project }}</项目名称><游戏大区>{{ game_district }}</游戏大区><服务器组别名> serice_group_nickname </服务器组别名><系统组命名>{{ system_name }}</系统组命名><Aid>{{ aid }}</Aid><zone>{{ zone }}</zone><Groupname>{{ group_name }}</Groupname><是否唯一>{{ unique }}</是否唯一><是否开充值>{{ pay }}</是否开充值></row></objects></p>
+    {% endblock %}
+  </body>
+</html>

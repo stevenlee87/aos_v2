@@ -20,7 +20,7 @@ setup(
         'aos/manage.py'
     ],
     install_requires=[
-        "django==1.6.5",
+        "django==1.7.0",
         "pillow",
         "gunicorn",
         "mysql-python",

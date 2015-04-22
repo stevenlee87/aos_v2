@@ -15,6 +15,14 @@ from .models import (
 #    readonly_fields = ('id', )
 #    can_delete = True
 
+class ServerListInline(object):
+    model = ServerList
+    extra = 0
+    style = 'accordion'
+    readonly_fields = ('id', )
+#    can_delete = False
+    can_delete = True
+
 class ServerListAdmin(object):
     #inlines = [HostCommentInline]
     reversion_enable = True
@@ -34,6 +42,7 @@ xadmin.site.register(ServerList, ServerListAdmin)
 
 
 class ProjectAdmin(object):
+    inlines = [ServerListInline]
     reversion_enable = True
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')

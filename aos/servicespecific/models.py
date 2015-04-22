@@ -36,7 +36,7 @@ class ServerList(models.Model):
     # = models.IntegerField(choices=SERVERLIST_YESORNO, verbose_name="是否")
 
     def __unicode__(self):
-        return '[%s][%s]' % (self.custom_id, self.project)
+        return '[%s][%s][%s][%s][%s][%s][%s][%s][%s][%s][%s]' % (self.custom_id, self.created_time, self.project, self.game_district, self.serice_group_nickname, self.system_name, self.aid, self.zone, self.group_name, self.unique, self.pay )
 
     class Meta:
         verbose_name = verbose_name_plural = "服务器组列表"

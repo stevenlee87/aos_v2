@@ -73,10 +73,10 @@ class Host(models.Model):
     raid = models.CharField(blank=True, max_length=200, verbose_name="raid卡信息")
     drac = models.CharField(blank=True, max_length=200, verbose_name="drac信息")
     service_tag = models.CharField(blank=True, max_length=200, verbose_name="服务标签")
-    model = models.IntegerField(choices=HOST_MODEL, verbose_name="主机型号")
-    image = models.IntegerField(choices=HOST_IMAGE, verbose_name="主机镜像")
-    created_time = models.DateTimeField(blank=True, auto_now_add=False, verbose_name="创建时间")
-    expire_time = models.DateTimeField(blank=True, auto_now=False, verbose_name="到期时间")
+    model = models.IntegerField(blank=True, choices=HOST_MODEL, verbose_name="主机型号")
+    image = models.IntegerField(blank=True, choices=HOST_IMAGE, verbose_name="主机镜像")
+    created_time = models.DateTimeField(null=True, blank=True, auto_now_add=False, verbose_name="创建时间")
+    expire_time = models.DateTimeField(null=True, blank=True, auto_now=False, verbose_name="到期时间")
 
     service = models.ForeignKey(Service, verbose_name="业务")
 

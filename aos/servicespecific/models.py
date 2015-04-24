@@ -2,19 +2,20 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from host.models import Host, Service
 
-class Project(models.Model):
-    """ 项目管理"""
-    name = models.CharField(max_length=200, verbose_name="项目名称")
-
-    update_time = models.DateTimeField(auto_now=True)
-    created_time = models.DateTimeField(auto_now_add=True)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = verbose_name_plural = "项目"
+#class Project(models.Model):
+#    """ 项目管理"""
+#    name = models.CharField(max_length=200, verbose_name="项目名称")
+#
+#    update_time = models.DateTimeField(auto_now=True)
+#    created_time = models.DateTimeField(auto_now_add=True)
+#
+#    def __unicode__(self):
+#        return self.name
+#
+#    class Meta:
+#        verbose_name = verbose_name_plural = "项目"
 
 class ServerList(models.Model):
     SERVERLIST_YESORNO = (
@@ -24,10 +25,12 @@ class ServerList(models.Model):
 
     custom_id = models.CharField(max_length=200, verbose_name="ID")
     created_time = models.DateTimeField(auto_now_add=False, verbose_name="服务器开服时间")
-    project = models.ForeignKey(Project, verbose_name="项目名称")
+    #project = models.ForeignKey(Project, verbose_name="项目名称")
+    service = models.ForeignKey(Service, verbose_name="业务")
     game_district = models.CharField(max_length=200, verbose_name="游戏大区")
     serice_group_nickname = models.CharField(max_length=200, verbose_name="服务器组别名")
-    system_name = models.CharField(max_length=200, verbose_name="系统组命名")
+    #system_name = models.CharField(max_length=200, verbose_name="系统组命名")
+    hostname = models.ForeignKey(Host, verbose_name="主机名") 
     aid = models.CharField(max_length=200, verbose_name="Aid")
     zone = models.CharField(max_length=200, verbose_name="zone")
     group_name = models.CharField(max_length=200, verbose_name="Groupname")
@@ -36,7 +39,7 @@ class ServerList(models.Model):
     # = models.IntegerField(choices=SERVERLIST_YESORNO, verbose_name="是否")
 
     def __unicode__(self):
-        return '[%s][%s][%s][%s][%s][%s][%s][%s][%s][%s][%s]' % (self.custom_id, self.created_time, self.project, self.game_district, self.serice_group_nickname, self.system_name, self.aid, self.zone, self.group_name, self.unique, self.pay )
+        return '[%s][%s][%s][%s][%s][%s][%s][%s][%s][%s][%s]' % (self.custom_id, self.created_time, self.service, self.game_district, self.serice_group_nickname, self.hostname, self.aid, self.zone, self.group_name, self.unique, self.pay )
 
     class Meta:
         verbose_name = verbose_name_plural = "服务器组列表"

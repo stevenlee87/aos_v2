@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configure>
+
+<xmltree branch="gameinstall=game,tomcat;update_iptables=iptables,game;update_tomcat=tomcat"/>
+
+<data_index>
+
+{% for item in zones %}
+        <info key="zoneid" value="{{ item.zone }}"/>
+        <info key="aid" value="{{ item.aid }}"/>
+{% endfor %}
+</data_index>
+
+
+</configure>

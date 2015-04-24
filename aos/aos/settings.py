@@ -100,3 +100,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/export/www/static/aos/'
+
+
+TEMPLATE_DIRS = (
+    '/export/www/aos/aos/templates/',
+)
+

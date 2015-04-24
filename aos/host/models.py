@@ -6,6 +6,7 @@ from django.db import models
 
 class Service(models.Model):
     """ 业务框架管理"""
+    custom_id = models.CharField(blank=True, max_length=200, verbose_name="ID")
     name = models.CharField(max_length=200, verbose_name="业务名称")
     master_coder = models.CharField(max_length=200, verbose_name="主程")
     customer_service = models.CharField(max_length=200, verbose_name="客服接口人")
@@ -64,15 +65,14 @@ class Host(models.Model):
         (2, 'Windows Server 2008 R2 Datacenter 64位英文版'),
     )
 
+    custom_id = models.CharField(blank=True, max_length=200, verbose_name="ID")
     name = models.CharField(blank=True, max_length=200, verbose_name="主机名")
+    cloudandservice = models.ForeignKey(CloudAndService, verbose_name="云服务名称", blank=True)
     ip_in = models.IPAddressField(verbose_name="内网IP")
     ip_out = models.IPAddressField(blank=True, verbose_name="公网IP")
     cpu = models.CharField(blank=True, max_length=200, verbose_name="CPU信息")
     memory = models.CharField(blank=True, max_length=200, verbose_name="内存信息") 
     disk = models.CharField(blank=True, max_length=200, verbose_name="硬盘信息")
-    raid = models.CharField(blank=True, max_length=200, verbose_name="raid卡信息")
-    drac = models.CharField(blank=True, max_length=200, verbose_name="drac信息")
-    service_tag = models.CharField(blank=True, max_length=200, verbose_name="服务标签")
     model = models.IntegerField(blank=True, choices=HOST_MODEL, verbose_name="主机型号")
     image = models.IntegerField(blank=True, choices=HOST_IMAGE, verbose_name="主机镜像")
     created_time = models.DateTimeField(null=True, blank=True, auto_now_add=False, verbose_name="创建时间")
@@ -83,7 +83,9 @@ class Host(models.Model):
     type = models.IntegerField(choices=HOST_TYPE, verbose_name="主机类型")
     status = models.IntegerField(choices=HOST_STATUS, verbose_name="主机状态")
 
-    cloudandservice = models.ForeignKey(CloudAndService, verbose_name="云服务名称", blank=True)
+    raid = models.CharField(blank=True, max_length=200, verbose_name="raid卡信息")
+    drac = models.CharField(blank=True, max_length=200, verbose_name="drac信息")
+    service_tag = models.CharField(blank=True, max_length=200, verbose_name="服务标签")
 
     #comment = models.CharField(blank=True, max_length=1000, verbose_name="备注")
     #comment = models.ForeignKey(HostComment, verbose_name="备注")
@@ -92,7 +94,7 @@ class Host(models.Model):
     #created_time = models.DateTimeField(blank=True, auto_now_add=True)
 
     def __unicode__(self):
-        return '[%s][%s]' % (self.name, self.ip_in)
+        return '[%s][%s][%s]' % (self.name, self.ip_in, self.ip_out)
 
     class Meta:
         verbose_name = verbose_name_plural = "主机"

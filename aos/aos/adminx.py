@@ -36,7 +36,7 @@ class NavMenuPlugin(views.BaseAdminPlugin):
         ]),
         MenuBlock('业务具体管理', [
             MenuItemReplace('servicespecific.view_serverlist', '服务器组列表', ),
-            MenuItemReplace('servicespecific.view_project', '项目管理', ),
+            #MenuItemReplace('servicespecific.view_project', '项目管理', ),
         ]),
         MenuBlock('其他', [
             MenuItemReplace('auth.view_group', '组', ),

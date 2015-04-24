@@ -28,13 +28,14 @@ class HostAdmin(object):
     reversion_enable = True
 
     #list_display = ('id', 'name', 'ip_in', 'ip_out', 'internetdatacenter', 'service', 'type', 'status', 'comment','update_time')
-    list_display = ('id', 'name', 'ip_in', 'ip_out', 'cpu', 'memory', 'disk', 'raid', 'drac', 'service_tag', 'model', 'image', 'created_time', 'expire_time', 'service', 'type', 'status', 'cloudandservice')
+    #list_display = ('id', 'name', 'cloudandservice', 'ip_in', 'ip_out', 'cpu', 'memory', 'disk', 'model', 'image', 'created_time', 'expire_time', 'service', 'type', 'status', 'raid', 'drac', 'service_tag')
+    list_display = ('custom_id', 'name', 'cloudandservice', 'ip_in', 'ip_out', 'cpu', 'memory', 'disk', 'model', 'image', 'created_time', 'expire_time', 'service', 'type', 'status', 'raid', 'drac', 'service_tag')
 
-    list_display_links = ('id', 'name')
+    list_display_links = ('custum_id', 'name')
     list_editable = ('published', 'available')
 
-    search_fields = ('id', 'name', 'ip_in', 'ip_out')
-    list_filter = ['id', 'name', 'ip_in', 'ip_out', 'cpu', 'memory', 'disk', 'raid', 'drac', 'service_tag', 'model', 'image', 'type', 'status', 'cloudandservice']
+    search_fields = ('custom_id', 'name', 'ip_in', 'ip_out')
+    list_filter = ['custom_id', 'name', 'ip_in', 'ip_out', 'cpu', 'memory', 'disk', 'raid', 'drac', 'service_tag', 'model', 'image', 'type', 'status', 'cloudandservice']
 
     #def hostcomment_display(self, obj):
     #    item_add = ''
@@ -69,8 +70,8 @@ xadmin.site.register(Host, HostAdmin)
 class ServiceAdmin(object):
     inlines = [HostInline]
     reversion_enable = True
-    list_display = ('id', 'name', 'host_count', 'update_time')
-    list_display_links = ('id', 'name')
+    list_display = ('custom_id', 'name', 'host_count', 'update_time')
+    list_display_links = ('custom_id', 'name')
     def host_count(self, obj):
         return '%s台' % obj.host_set.count()
     

@@ -31,7 +31,7 @@ class HostAdmin(object):
     #list_display = ('id', 'name', 'cloudandservice', 'ip_in', 'ip_out', 'cpu', 'memory', 'disk', 'model', 'image', 'created_time', 'expire_time', 'service', 'type', 'status', 'raid', 'drac', 'service_tag')
     list_display = ('custom_id', 'name', 'cloudandservice', 'ip_in', 'ip_out', 'cpu', 'memory', 'disk', 'model', 'image', 'created_time', 'expire_time', 'service', 'type', 'status', 'raid', 'drac', 'service_tag')
 
-    list_display_links = ('custum_id', 'name')
+    list_display_links = ('custom_id', 'name')
     list_editable = ('published', 'available')
 
     search_fields = ('custom_id', 'name', 'ip_in', 'ip_out')

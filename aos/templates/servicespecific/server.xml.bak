@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Datas>
+
+{% for serverlist in zones %}
+<zone  serverid="{{ serverlist.custom_id }}" ip="{{ host.ip_out }}" serverip="{{ host.ip_in }}"  name="{{ serverlist.serice_group_nickname }}" gameid="{{ host.service_id }}" />
+{% endfor %}
+
+</Datas>

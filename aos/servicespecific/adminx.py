@@ -29,15 +29,15 @@ class ServerListAdmin(object):
     #inlines = [HostCommentInline]
     reversion_enable = True
 
-    list_display = ('custom_id', 'created_time', 'service', 'game_district', 'serice_group_nickname', 'hostname', 'aid', 'zone', 'group_name', 'unique', 'pay')
+    list_display = ('custom_id', 'created_time', 'service', 'game_district', 'server_group_nickname', 'host', 'aid', 'zone', 'group_name', 'unique', 'pay')
 
     list_display_links = ('custom_id', 'service')
     list_editable = ('published', 'available')
 
-    #search_fields = ('custom_id', 'created_time', 'service', 'game_district', 'serice_group_nickname', 'hostname', 'aid', 'zone', 'group_name')
-    search_fields = ('custom_id', 'game_district', 'serice_group_nickname', 'hostname', 'aid', 'zone', 'group_name', 'unique', 'pay')
+    #search_fields = ('custom_id', 'created_time', 'service', 'game_district', 'server_group_nickname', 'host', 'aid', 'zone', 'group_name')
+    search_fields = ('custom_id', 'game_district', 'server_group_nickname', 'host', 'aid', 'zone', 'group_name', 'unique', 'pay')
     #list_filter = ['service']
-    list_filter = ['custom_id', 'game_district', 'serice_group_nickname', 'hostname', 'aid', 'zone', 'group_name', 'unique', 'pay']
+    list_filter = ['custom_id', 'game_district', 'server_group_nickname', 'host', 'aid', 'zone', 'group_name', 'unique', 'pay']
 
 xadmin.site.register(ServerList, ServerListAdmin)
 #xadmin.site.register(Host, )

@@ -54,9 +54,10 @@ class Host(models.Model):
     )
 
     HOST_MODEL = (
-        (0, 'DELL 630'),
-        (1, 'DELL 730XD'),
-        (2, 'other'),
+        (0, 'DELL 620'),
+        (1, 'DELL 630'),
+        (2, 'DELL 730XD'),
+        (3, 'other'),
     )
 
     HOST_IMAGE = (

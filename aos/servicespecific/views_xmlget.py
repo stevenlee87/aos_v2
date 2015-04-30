@@ -1,33 +1,40 @@
 #coding=utf-8
 
 from models import ServerList
+from host.models import Host, Service
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 #from django.utils import simplejson
-import simplejson
-from django.core import serializers
-from django.template import Template, Context
+#import simplejson
+#from django.core import serializers
+#from django.template import Template, Context
 
 def getAll(request):
-    #data = serializers.serialize("xml", ServerList.objects.all())
-    #print data
-    #serverlists = ServerList.objects.all()
-    #serverlist_dict = []
-    #flag_dict = {'Y':True,'N':False}
-    #for serverlist in serverlists:
-    #    serverlist_dict.append({'custom_id':serverlist.id,'created_time':serverlist.created_time,'project':serverlist.project,'game_district':serverlist.game_district,'serice_group_nickname':serverlist.serice_group_nickname,'system_name':serverlist.system_name,'aid':serverlist.aid,'zone':serverlist.zone,'group_name':serverlist.group_name,'unique':serverlist.unique,'pay':serverlist.pay})
-    #return HttpResponse(simplejson.dumps(serverlist_dict), mimetype = 'application/json')
-    #return render_to_response('current_datetime.html', )
-    #return render_to_response('servicespecific/test.xml', {'zone': '"192.168.1.10"'}, mimetype="application/xml")  
-    #serverlist_dict = []
-    #for serverlist in ServerList.objects.values():
-    #    serverlist_dict.append(serverlist)
-    #zoneid = serverlist['zone'].encode('utf-8')
-    #print zoneid
-    #aid = serverlist['aid'].encode('utf-8')
-    #return render_to_response('servicespecific/test.xml', {'zone': zoneid, 'aid': aid})
-    #return render_to_response('servicespecific/test.xml', {'serverlist_dict_list': serverlist_dict })
-    host_dict = []
-    #for host in Host.objects.values():
-        
-    return render_to_response('servicespecific/test.xml', {'zones': ServerList.objects.values()})
+    serverlist_list = []
+    for serverlist in ServerList.objects.values():
+        serverlist_dict = {}
+        if serverlist['service_id'] == 2:
+            #print serverlist['service_id']
+            serverlist_custom_id = serverlist['custom_id']
+            #print serverlist_custom_id
+            serverlist_server_group_nickname = serverlist['server_group_nickname']
+            for service in Service.objects.values():
+                if service['id'] == 2:
+                    service_custom_id = service['custom_id']
+            for host in Host.objects.values():
+                if host['id'] == serverlist['host_id']:
+                    host_ip_in = host['ip_in']
+                    host_ip_out = host['ip_out']
+            serverlist_dict['serverlist_custom_id'] = serverlist_custom_id
+            serverlist_dict['server_group_nickname'] = serverlist_server_group_nickname
+            serverlist_dict['service_custom_id'] =  service_custom_id
+            serverlist_dict['host_ip_in'] = host_ip_in
+            serverlist_dict['host_ip_out'] = host_ip_out
+            #print "serverlist_dict is %s"  % serverlist_dict
+            serverlist_list.append(serverlist_dict)
+            #print serverlist_list
+        else:
+            continue
+    return render_to_response('servicespecific/server.xml', {'zones': serverlist_list}, content_type="application/xhtml+xml")        
+    serverlist_list = []
+    #return render_to_response('servicespecific/test.xml', {'zones': ServerList.objects.values()})
